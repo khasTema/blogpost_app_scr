@@ -1,5 +1,14 @@
-// console.log("hey hey")
 
+
+
+
+
+
+
+
+
+
+// API and POST RENDER SCRIPT
 const inputField = document.getElementById('post-title')
 const textField = document.getElementById('post-body')
 const form = document.getElementById('new-post')
@@ -23,17 +32,37 @@ fetch('https://jsonplaceholder.typicode.com/posts')
 .then(response => response.json())
 .then(data => {
     postsArray = data.slice(0,8)
-    // console.log(postsArray)
     renderPostPage()
 })
 
 
-form.addEventListener('submit', function(e){
+
+form.addEventListener("submit", function(e){
     e.preventDefault()
-    let title = inputField.value
-    let body = textField.value
+    let postTitle = inputField.value
+    let postBody = textField.value
+    const data = {
+        title: postTitle,
+        body: postBody
+    }
+
+    const getRequest = {
+        method: "POST",
+        headers: {
+            'ContentType' : 'application/json'
+        },
+        body: JSON.stringify(data)
+    }
+
+    fetch('https://jsonplaceholder.typicode.com/posts', getRequest)
+        .then(response => response.json())
+        .then(newPost => {
+            postsArray.unshift(newPost)
+            renderPostPage()
+        })
     
 })
+
 
 
 

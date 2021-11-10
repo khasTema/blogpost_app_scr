@@ -9,12 +9,16 @@
 </head>
 <body>
     <header>
-        <h1>Blog & Post</h1>
-        <a href="#" id="new-post" class="new-post-btn">+new</a>
+        <nav>
+            <h1>Blog & Post</h1>
+            <a href="#" id="add-post" class="add-post-btn">+new</a>
+        </nav>
         <form id="new-post">
+            <label for="post-title"></label>
             <input type="text" id="post-title" class="new-post-title" placeholder="...your title">
+            <label for="post-body"></label>
             <textarea name="post-text" id="post-body" class="new-post-body" placeholder="...your text"></textarea>
-            <button class="new-post-btn">share</button>
+            <button type="submit" class="share-btn">share</button>
         </form>
     </header>
     <main>
