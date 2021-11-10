@@ -37,26 +37,19 @@ form.addEventListener("submit", function(e){
         title: postTitle,
         body: postBody
     }
-    console.log(data)
 
-    const getRequest = {
-        method: 'POST',
+    const options = {
+        method: "POST",
         body: JSON.stringify(data),
         headers: {
-            'ContentType' : 'application/json'
-        },
+            "Content-Type" : "application/json"
+        }
     }
 
-    fetch('https://jsonplaceholder.typicode.com/posts', getRequest)
-        .then(res => res.json())
-        .then(newestPost => {
-
-            console.log(newestPost)
-
-            postsArray.unshift(newestPost)
-
-            console.log(postsArray)
-
+    fetch('https://jsonplaceholder.typicode.com/posts', options)
+        .then(response => response.json())
+        .then(post => {
+            postsArray.unshift(post)
             renderPostPage()
             form.reset()
             form.classList.remove('post-form')
