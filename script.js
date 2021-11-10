@@ -1,23 +1,13 @@
-
-
-
-
-
-
-
-
-
-
-// API and POST RENDER SCRIPT
 const inputField = document.getElementById('post-title')
 const textField = document.getElementById('post-body')
+const addingPost = document.getElementById('add-post')
 const form = document.getElementById('new-post')
 const recentPosts = document.getElementById('recent-posts')
 let postsArray = []
 
 function renderPostPage(){
-   let recentPostsBody = ''
-   for(let post of postsArray){
+    let recentPostsBody = ''
+    for(let post of postsArray){
        recentPostsBody += `
             <div class="recent-posts_item">
                 <h3>${post.title}</h3>
@@ -35,7 +25,9 @@ fetch('https://jsonplaceholder.typicode.com/posts')
     renderPostPage()
 })
 
-
+addingPost.addEventListener('click', function(){
+    form.classList.add('post-form')
+})
 
 form.addEventListener("submit", function(e){
     e.preventDefault()
@@ -45,26 +37,29 @@ form.addEventListener("submit", function(e){
         title: postTitle,
         body: postBody
     }
+    console.log(data)
 
     const getRequest = {
-        method: "POST",
+        method: 'POST',
+        body: JSON.stringify(data),
         headers: {
             'ContentType' : 'application/json'
         },
-        body: JSON.stringify(data)
     }
 
     fetch('https://jsonplaceholder.typicode.com/posts', getRequest)
-        .then(response => response.json())
-        .then(newPost => {
-            postsArray.unshift(newPost)
+        .then(res => res.json())
+        .then(newestPost => {
+
+            console.log(newestPost)
+
+            postsArray.unshift(newestPost)
+
+            console.log(postsArray)
+
             renderPostPage()
+            form.reset()
+            form.classList.remove('post-form')
         })
     
 })
-
-
-
-
-
-
